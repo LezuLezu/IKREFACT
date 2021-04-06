@@ -17,7 +17,8 @@ class CreateAnimalTable extends Migration
             $table->id();
             $table->string("name");
             $table->string("species");
-            $table->string("breed");
+            $table->string("breed");            
+            $table->string('age');
             $table->unsignedBigInteger("owner");
             $table->foreign("species")->references("species")->on("kind_of_animal");
             $table->foreign("owner")->references("id")->on("users");
