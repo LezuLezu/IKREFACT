@@ -14,4 +14,7 @@ class Animal extends Model
     public function speciesModel(){
         return $this->belongsTo('\App\Models\KindOfAnimal', 'species', 'species');
     }
+    public function myOwner(){
+        return $this->belongsTo(\App\Models\User::class, 'owner', 'id');
+    }
 }

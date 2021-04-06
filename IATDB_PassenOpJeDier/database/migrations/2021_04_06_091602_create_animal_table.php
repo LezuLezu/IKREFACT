@@ -18,7 +18,9 @@ class CreateAnimalTable extends Migration
             $table->string("name");
             $table->string("species");
             $table->string("breed");
+            $table->unsignedBigInteger("owner");
             $table->foreign("species")->references("species")->on("kind_of_animal");
+            $table->foreign("owner")->references("id")->on("users");
         });
     }
 
@@ -29,9 +31,6 @@ class CreateAnimalTable extends Migration
      */
     public function down()
     {
-        Schema::Table("animal", function(Blueprint $table){
-            $table->dropForeign("animal_species_foreign");
-        });
         Schema::dropIfExists('animal');
     }
 }

@@ -18,6 +18,7 @@ class AnimalCatTableSeeder extends Seeder
             'name' => "Mickey",
             'species' => "Kat",
             'breed' => "Maine Coon",
+            'owner' => "1",
         ]);
     }
 }
