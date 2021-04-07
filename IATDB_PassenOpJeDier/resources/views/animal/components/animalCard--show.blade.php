@@ -13,6 +13,7 @@
 
         <section class="showCard__buttonSection u-flex-v-center">
             <button class="showCard__button showCard__button-pick u-flex-v-center" onclick="">Op {{$animals->name}} passen</button>
+            <button class="showCard__button showCard__button-back u-flex-v-center" onclick="window.location.href='/animal/{{$animals->id}}/owner'">Baasje van {{$animals->name}} bekijken</button>
             <button class="showCard__button showCard__button-back u-flex-v-center" onclick="window.location.href='/animals'">Terug naar overzicht</button>
         </section>
 
