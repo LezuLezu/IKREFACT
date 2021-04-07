@@ -1,0 +1,157 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html{
+    box-sizing: inherit;
+    font-size: 62.5%;
+}
+
+body{
+    font-size: 1.8rem;
+    padding: 2rem;
+    background-color: #5eaaa8;
+    font-family: Verdana;
+}
+/* Animal Grid index */
+.gridCard{
+    grid-column: span 12;
+    width: 100%;
+    height: 50rem;
+    box-shadow: 0 0.5rem 2rem rgba(37,42,52);
+    position: relative;
+    background-color: #a3d2ca;
+}
+
+.gridCard > a{
+    text-decoration: none;
+}
+.gridCard > a > article{
+    width: 100%;
+    height: 100%;
+}
+.gridCard__header, .showCard__header{
+    width: 100%;
+    height: 10%;
+}
+.gridCard__heading, .showCard__heading{
+    color: #252a34;
+}
+.gridCard__figure{
+    width: 100%;
+    height: 70%;
+}
+.gridCard__image{
+    width: 80%;
+    height: 100%;
+    object-fit: cover;
+}
+ 
+
+.gridCard__buttonSection{
+    height: 20%;
+    /* padding-left: 2rem; */
+}
+.gridCard__button, .showCard__button{
+    width: 20rem;
+    height: 6rem;
+    font-size: 120%;
+    /* padding: 1rem 2rem; */
+    box-sizing: border-box;
+    background-color: #5eaaa8;
+    border: none;
+    color: #eeeeee;
+    box-shadow: 0 0 4rem rgba(37,42,52, 0.5);
+    transition: 0.2s all;
+}
+.gridCard__button:hover, .showCard__button:hover{
+    cursor: pointer;
+    box-shadow: 0 0 5rem rgba(37,42,52, 1);;
+}
+
+/* Animal info page */
+.showCard{
+    width: 90vw;
+    height: 90vh;
+    margin: 0 auto;
+    background-color: #a3d2ca;
+    box-shadow: 0 0.5rem 2rem black;
+    position: relative;    
+}
+.showCard__figure{
+    width: 100%;
+    height: 60%;    
+}
+.showCard__image{
+    width: 75%;
+    height: 100%;
+    object-fit: cover;
+}
+.showCard__text{
+    color: #252a34;
+    height: 15%;
+    display: flex;
+    align-items: center;
+    padding-left: 2rem;
+}
+.showCard__buttonSection{
+    height: 15%;
+    display: block;
+}
+.showCard__button{   
+    font-size: 100%;
+    margin: 1rem;   
+}
+/* utilty classes */
+.u-list-style-none{
+    list-style: none;
+}
+.u-grid-12{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+}
+.u-grid-gap-2{
+    grid-gap: 2rem;
+}
+
+.u-flex-v-center{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Media queries */
+@media (min-width: 31.25rem){
+    .showCard{
+        width: 70vw;
+    }
+}
+@media (min-width: 37.5rem ) {
+    .gridCard{
+        grid-column: span 6;
+    }
+    .showCard{
+        width: 60vw;
+    }    
+}
+@media (min-width: 46.875rem){
+    .showCard{
+        width: 50vw;
+    }
+}
+@media (min-width: 53.125rem){
+    .showCard{
+        width: 40vw;
+    }
+}
+@media (min-width: 56.25rem ) {
+    .gridCard{
+        grid-column: span 3;
+    }
+    .showCard{
+        width: 30vw;
+    }
+}
