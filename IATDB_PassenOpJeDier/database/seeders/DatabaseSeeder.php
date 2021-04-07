@@ -15,7 +15,9 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             ImagesTableSeeder::class,
+            RolesTableSeeder::class,
             UsersTableSeeder::class,
+            
             KindOfAnimalTableSeeder::class,
             AnimalBirdTableSeeder::class,
             AnimalCatTableSeeder::class,
