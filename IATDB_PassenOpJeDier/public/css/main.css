@@ -48,8 +48,6 @@ body{
     height: 100%;
     object-fit: cover;
 }
- 
-
 .gridCard__buttonSection{
     height: 20%;
     /* padding-left: 2rem; */
@@ -104,6 +102,224 @@ body{
     font-size: 100%;
     margin: 1rem;   
 }
+/* Navigation*/
+/* Source: https://www.cssscript.com/mobile-site-navbar/ */
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 8rem;
+    background-color: #a3d2ca;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 0.5rem 2rem rgba(37,42,52);
+
+}
+.navbar__heading{
+    color: #252a34;
+}
+.navbar__list{
+    list-style: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 75%;
+    height: 100vh;
+    background-color: rgb(248, 241, 241, 0.9) ;
+    padding: 4.4rem;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-around; */
+    z-index: 1000;
+    transform: translateX(-100%);;
+    transition: transform 0.5s;
+}
+.navbar__item .navbar__link{
+    display: block;
+    color: #252a34;
+    padding: 1rem 1.8rem;
+    text-decoration: none;
+}
+
+ .navbar__link:hover{
+    border-bottom: 3px solid #eb5e0b;
+}
+.open .navbar__list{
+    transform:translateX(0);
+}
+.menu-toggle {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 3.2rem;
+    height: 3.2rem;
+    cursor: pointer;
+    transition: all 0.5s ease-in-out;
+}
+.hamburger {
+    width: 2.4rem;
+    height: 3px;
+    background-color: #eb5e0b;
+    border-radius: 2px;
+    border: none;
+    transition: all 0.7s ease-out;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: "";
+    position: absolute;
+    width: 2.4rem;
+    height: 3px;
+    background-color: #eb5e0b;
+    border-radius: 2px;
+    border: none;
+}
+.hamburger::before {
+    transform: translateY(-8px);
+}
+
+.hamburger::after {
+    transform: translateY(8px);
+}
+.open .hamburger {
+    background: transparent;
+}
+
+.open .hamburger::before {
+    transform-origin: 0% 0%;
+    transform: rotate(45deg);
+}
+
+.open .hamburger::after {
+    transform-origin: 0% 0%;
+    transform: rotate(-45deg);
+}
+
+
+/* fancy things */
+/* Corner style per species */
+.gridCard::after{
+    content: '' ;
+    width: 10%;
+    height: 10%;    
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    clip-path: polygon(100% 0, 100% 100%, 0% 100%);
+}
+.showCard::after{
+    content: '' ;
+    width: 10%;
+    height: 10%;    
+    position: absolute;
+    top: 0;
+    right: 0;
+    clip-path: polygon(100% 0, 0 0, 100% 100%);
+}
+.gridCard[data-species-of-animal="Kat"]::after,
+.showCard[data-species-of-animal="Kat"]::after{
+    background-color: #ff2e63;
+}
+.gridCard[data-species-of-animal="Hond"]::after,
+.showCard[data-species-of-animal="Hond"]::after{
+    background-color: #ffd82c;
+}
+.gridCard[data-species-of-animal="Vogel"]::after,
+.showCard[data-species-of-animal="Vogel"]::after{
+    background-color: #eb5033;
+}
+/* animation */
+@media (prefers-reduced-motion: no-preference){
+    .a-popup{
+        -webkit-animation: popup 0.8s ;
+        -moz-animation: popup 0.8s ;
+        -o-animation: popup 0.8s ;
+        animation: popup 0.8s ;
+    }    
+}
+@media (prefers-reduced-motion: reduced){
+    .a-popup{
+        -webkit-animation: popup 1.2s ;
+        -moz-animation: popup 1.2s ;
+        -o-animation: popup 1.2s ;
+        animation: popup 1.2s ;
+    }    
+}
+
+.a-popup{
+    -webkit-animation-fill-mode: backwards;    
+    -moz-animation-fill-mode: backwards;    
+    -o-animation-fill-mode: backwards;   
+    animation-fill-mode: backwards;
+}
+.a-popup:nth-of-type(2n){
+    -webkit-animation-delay: 0.1s;
+    -moz-animation-delay: 0.1s;
+    -o-animation-delay: 0.1s;
+    animation-delay: 0.1s;
+}
+.a-popup:nth-of-type(3n){
+    -webkit-animation-delay: 0.2s;
+    -moz-animation-delay: 0.2s;
+    -o-animation-delay: 0.2s;
+    animation-delay: 0.2s;
+}
+ 
+@-webkit-keyframes popup {
+    0%{
+        transform: scale(1.05) translateY(1.8rem);
+        opacity: 0;
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@-moz-keyframes popup {
+    0%{
+        transform: scale(1.05) translateY(1.8rem);
+        opacity: 0;
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@-o-keyframes popup {
+    0%{
+        transform: scale(1.05) translateY(1.8rem);
+        opacity: 0;
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+@keyframes popup {
+    0%{
+        transform: scale(1.05) translateY(1.8rem);
+        opacity: 0;
+    }
+    70%{
+        transform: scale(1);
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+
+
 /* utilty classes */
 .u-list-style-none{
     list-style: none;
@@ -141,11 +357,41 @@ body{
     .showCard{
         width: 50vw;
     }
+    .navbar__heading{
+        font-size: 2rem;;
+    }
+    
+    .navbar__list {
+        position: initial;
+        width: initial;
+        height: initial;
+        background-color: transparent;
+        padding: 0;
+        justify-content: initial;
+        flex-direction: row;
+        transform: initial;
+        transition: initial;
+    }
+    .navbar__link {
+        font-size: 1.4rem;
+        transition: all 0.1s;
+        border: 3px solid #a3d2ca;
+    }
+   
+    .menu-toggle {
+        display: none;
+    }
+  
 }
 @media (min-width: 53.125rem){
     .showCard{
         width: 40vw;
     }
+    .navbar__link {
+        font-size: 1.5rem;
+    }
+
+    
 }
 @media (min-width: 56.25rem ) {
     .gridCard{
@@ -154,4 +400,16 @@ body{
     .showCard{
         width: 30vw;
     }
+    .navbar__link {
+        font-size: 1.8rem;
+    }
+
 }
+
+
+/* Palettes 
+Main: https://colorhunt.co/palette/252800
+Extras;
+    https://colorhunt.co/palette/17117
+    https://colorhunt.co/palette/2358
+*/
