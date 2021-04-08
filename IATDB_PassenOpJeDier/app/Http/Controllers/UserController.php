@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class UserController extends Controller
 {
@@ -30,5 +32,29 @@ class UserController extends Controller
     public function sitterShow($id){
         $sitters = \App\Models\User::find($id);
         return view('sitter.show', ['sitters' => $sitters]);
+    }
+
+    // Create new sitter
+    public function create(){
+        return view('new.sitter.create', [
+            'images' => \App\Models\Images::all()
+        ]);
+    }
+    public function store(Request $request, \App\Models\User $user){
+        $user = Auth::user();
+        $userImage = $request->input('imageHome');
+        $userDes = $request->input('description');
+        try{
+            DB::table('users')
+                    ->where('id', $user->id)
+                    ->update([
+                        'image' => $userImage,
+                        'description' => $userDes,
+                        'role' => 'Oppasser'
+                    ]);
+            return redirect('/sitters');
+        }catch(Exception $e){
+            return redirect('/createsitter');
+        }
     }
 }

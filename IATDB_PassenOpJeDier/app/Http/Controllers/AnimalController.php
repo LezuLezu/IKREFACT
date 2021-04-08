@@ -45,15 +45,7 @@ class AnimalController extends Controller
         $animal->image = $request->input('imagePet');
         $animal->owner = $user->id;
         $animal->description = $request->input('descriptionPet');
-        // return $animal;
-        // $animal->save();
-        // DB::table('users')
-        //         ->where('id', $user->id)
-        //         ->update([
-        //             'image' => $userImage,
-        //             'description' => $userDes,
-        //             'role' => "Baasje"
-        //         ]);
+
         try{
             $animal->save();
             DB::table('users')

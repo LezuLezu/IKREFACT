@@ -27,7 +27,7 @@
                 <a class="navbar__link" href="/createpet"> Nieuw dier profiel </a>
             </li >
             <li class="navbar__item u-flex-v-center">
-                <a class="navbar__link " href="#"> Nieuw oppasprofiel </a>
+                <a class="navbar__link " href="/createsitter"> Nieuw oppasprofiel </a>
             </li>  
         </ul>       
         <div class="menu-toggle">
