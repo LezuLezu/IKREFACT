@@ -1,4 +1,4 @@
-<li class="a-popup u-list-style-none gridCard" data-species-of-animal={{$animal->species}}>
+<li class="gridCard a-popup u-list-style-none js--animal-list" data-species-of-animal={{$animal->species}}>
     <a href="/animal/{{$animal->id}}">
         <article >
             <header class="gridCard__header u-flex-v-center">

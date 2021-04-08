@@ -18,7 +18,7 @@
                 <a  class="navbar__link " href="/animals"> Dieren </a>
             </li>
             <li class="navbar__item u-flex-v-center">
-                <a class="navbar__link" href="/sitters"> Opppassers </a>
+                <a class="navbar__link" href="/sitters"> Oppassers </a>
             </li>
             <li  class="navbar__item u-flex-v-center">
                 <a class="navbar__link" href="/owners"> Baasjes </a>

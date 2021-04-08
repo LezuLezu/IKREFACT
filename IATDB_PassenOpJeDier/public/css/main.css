@@ -199,6 +199,29 @@ body{
     transform: rotate(-45deg);
 }
 
+/* Filter */
+.filter-section{
+    width: 100%;
+    color: #252a34;
+    font-size: 120%;
+    margin-bottom: 2rem;
+    background-color: #a3d2ca;
+    display: block;
+    z-index: 1000;
+    overflow: auto;
+    box-shadow: 0 0.5rem 2rem rgba(37,42,52);
+
+
+}
+.filter-section__wrapper{
+    float: left;
+    margin-left: 2rem;
+    margin-right: 2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+
 
 /* fancy things */
 /* Corner style per species */
