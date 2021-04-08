@@ -57,7 +57,7 @@ class AnimalController extends Controller
                     ]);
             return redirect('/animals');
         }catch(Exception $e){
-            return $e;
+            return redirect('/createpet');
         }
     }
 }

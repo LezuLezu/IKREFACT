@@ -54,7 +54,7 @@ body{
     height: 20%;
     /* padding-left: 2rem; */
 }
-.banCard__button, .blockCard__button,
+.banCard__button, .blockCard__button, .create-form__button,
 .gridCard__button, .showCard__button{
     width: 20rem;
     height: 6rem;
@@ -67,7 +67,7 @@ body{
     box-shadow: 0 0 4rem rgba(37,42,52, 0.5);
     transition: 0.2s all;
 }
-.banCard__button:hover, .blockCard__button:hover,
+.banCard__button:hover, .blockCard__button:hover, .create-form__button:hover,
 .gridCard__button:hover, .showCard__button:hover{
     cursor: pointer;
     box-shadow: 0 0 5rem rgba(37,42,52, 1);;
@@ -248,6 +248,41 @@ body{
     margin-bottom: 1rem;
 }
 
+/* Create pages */
+.create-form{
+    width: 90vw;
+    margin: 0 auto;
+    box-shadow: 0 0.5rem 2rem #252a34;
+    min-height: 70vh;
+    display: flex;
+    color: #252a34;
+    background-color: #a3d2ca;
+}
+.create-form__form{
+    width: 90%;
+    margin: 0 auto;
+}
+.create-form__section{
+    margin-top: 2rem;
+    font-size: 120%;
+    width: 100%;
+}
+.create-form__input{
+    display: block;
+    margin-top: 1rem;
+    width: 80%;
+    font-size: 100%;
+    font-weight: 400;
+    font-family: sans-serif;
+}
+.create-form__input--big{
+    height: 20rem;
+}
+.create-form__button{
+    padding: 1rem 2rem;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
 
 
 /* fancy things */

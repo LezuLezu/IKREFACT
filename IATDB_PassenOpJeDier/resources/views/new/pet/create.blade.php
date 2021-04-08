@@ -6,7 +6,7 @@
 
 @section('content')
     <article class="create-form a-popup">
-        <form class="create-form__form" action="/animals" method='POST'>
+        <form class="create-form__form " action="/animals" method='POST'>
             @csrf
             <!-- naam dier -->
             <section class="create-form__section">
@@ -59,14 +59,14 @@
             </section>
 
             <!-- Omschrijving baasje -->
-            <section class="create-form__section">
+            <section class="create-form__section ">
                 <label for="descriptionOwner">Omschrijving baasje</label>
                 <textarea class="create-form__input create-form__input--big" name="descriptionOwner" type="text-area" id="descriptionOwner"></textarea>
             </section>
 
 
 
-            <section class="create-form__section">
+            <section class="create-form__section u-flex-v-center">
                 <button class="create-form__button" type="submit">Verstuur</button>
             </section> 
         </form>
