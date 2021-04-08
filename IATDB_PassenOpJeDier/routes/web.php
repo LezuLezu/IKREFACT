@@ -38,8 +38,17 @@ Route::middleware(['auth'])->group(function(){
     // Oppassers routes
     Route::get('/sitters', [\App\Http\Controllers\UserController::class, 'sitterIndex']);
     Route::get('/sitter/{id}', [\App\Http\Controllers\UserController::class, 'sitterShow']);
+});
 
-
+// Accesible for admin
+Route::middleware(['auth', 'admin'])->group(function(){
+    Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index']);
+    // block users
+    Route::get('/admin/create--block', [\App\Http\Controllers\AdminController::class, 'createBlock']);
+    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'updateBlock']);
+    // deblock users
+    Route::get('/admin/create--deblock', [\App\Http\Controllers\AdminController::class, 'createDeblock']);
+    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'updateDeblock']);
 
 });
 
