@@ -38,6 +38,10 @@ Route::middleware(['auth'])->group(function(){
     // Oppassers routes
     Route::get('/sitters', [\App\Http\Controllers\UserController::class, 'sitterIndex']);
     Route::get('/sitter/{id}', [\App\Http\Controllers\UserController::class, 'sitterShow']);
+
+    // create new pet profile
+    Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
+    Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
 });
 
 // Accesible for admin

@@ -11,6 +11,9 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                     You're logged in!
                 </div>
+                <div class="p-6 bg-white border-b border-gray-200">
+                    <a href="/">Naar de beschikbare dieren</a>
+                </div>
             </div>
         </div>
     </div>
