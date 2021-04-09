@@ -31,7 +31,11 @@ class UserController extends Controller
     }
     public function sitterShow($id){
         $sitters = \App\Models\User::find($id);
-        return view('sitter.show', ['sitters' => $sitters]);
+        $reviews = \App\Models\Review::all()->where('id', $id);
+        return view('sitter.show', [
+            'sitters' => $sitters,
+            'reviews' => $reviews,
+            ]);
     }
 
     // Create new sitter
@@ -126,6 +130,11 @@ class UserController extends Controller
     // Reviews
     public function createReview($animal){
         $sitter = \App\Models\User::find($animal->sitter);
+        DB::table('animal')
+                    ->where('name', $animal->name)
+                    ->update([
+                        'sitter'=> NULL,
+                        ]);
         return view('owner.review', ['sitter'=>$sitter]);
     }
 
