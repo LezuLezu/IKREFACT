@@ -1,4 +1,4 @@
-<article class="showCard  a-popup" data-species-of-animal={{$sitters->species}}>
+<article class="showCard sitterCard a-popup" data-species-of-animal={{$sitters->species}}>
     <header class="showCard__header u-flex-v-center">
                 <h2 class="showCard__heading">{{$sitters->name}}</h2>
         </header>

@@ -36,6 +36,29 @@
                 <li class="navbar__item u-flex-v-center">
                     <a class="navbar__link " href="/logout"> Log uit </a>
                 </li> 
+            @elseif(Auth::user()->role=="Admin")
+                <li class="navbar__item u-flex-v-center">
+                    <a  class="navbar__link " href="/animals"> Dieren </a>
+                </li>
+                <li class="navbar__item u-flex-v-center">
+                    <a class="navbar__link" href="/sitters"> Oppassers </a>
+                </li>
+                <li  class="navbar__item u-flex-v-center">
+                    <a class="navbar__link" href="/owners"> Baasjes </a>
+                </li>
+                <li class="navbar__item u-flex-v-center">
+                    <a class="navbar__link" href="/createpet"> Nieuw dier profiel </a>
+                </li >
+                <li class="navbar__item u-flex-v-center">
+                    <a class="navbar__link " href="/createsitter"> Nieuw oppasprofiel </a>
+                </li> 
+                <li class="navbar__item u-flex-v-center">
+                    <a class="navbar__link " href="/admin"> Admin </a>
+                </li> 
+                <li class="navbar__item u-flex-v-center">
+                    <a class="navbar__link " href="/logout"> Log uit </a>
+                </li> 
+            
             @else
                 <li class="navbar__item u-flex-v-center">
                     <a  class="navbar__link " href="/animals"> Dieren </a>

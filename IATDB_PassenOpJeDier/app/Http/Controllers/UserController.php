@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function ownerAnimals($id){
         $animals = \App\Models\User::find($id)->myAnimals;
-        return view('animal.index', ['animals' => $animals]);
+        return view('animal.ownerIndex', ['animals' => $animals]);
     }
 
     // Sitter functions
@@ -141,14 +141,19 @@ class UserController extends Controller
     public function storeReview(Request $request, \App\Models\Review $review){
         $id = intval(substr($_SERVER['REQUEST_URI'], -1));
         $review->id = $id;
-        $review->rating =  $request->input('rating');
-        $review->review_text = $request->input('review_text');
-        try{
-            $review->save();
+        if($request->input('rating') != NULL){
+            $review->rating =  $request->input('rating');
+            $review->review_text = $request->input('review_text');
+            try{
+                $review->save();
+                return redirect('/animals');
+            }catch(Exception $e){
+                return redirect('owner.review');
+            }
+        }else{
             return redirect('/animals');
-        }catch(Exception $e){
-            return redirect('owner.review');
         }
+        
     }
 
 }

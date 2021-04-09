@@ -5,12 +5,14 @@
             </header>
             <figure class="gridCard__figure u-flex-v-center" >
                 <img class="gridCard__image u-flex-v-center" src="{{$animal->image}}" alt="{{$animal->name . ' ' . $animal->species}}">
-            </figure>
+            </figure>            
 
-            <section class="gridCard__buttonSection u-flex-v-center">
+            <section class="gridCard__buttonSection gridCard__buttonSection--twoButtons u-display-block">
                 <button class="gridCard__button u-flex-v-center" onclick="window.location.href='/animal/{{$animal->id}}'">Meer over {{$animal->name}}</button>
+                <button class="gridCard__button u-flex-v-center" onclick="window.location.href='/application/{{$animal->id}}'">Aanvragen bekijken</button>
             </section>
         
+            
 
         </article>
 </li>
