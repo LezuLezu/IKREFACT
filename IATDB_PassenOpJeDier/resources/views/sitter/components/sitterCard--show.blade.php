@@ -1,4 +1,4 @@
-<article class="showCard  a-popup" data-species-of-animal={{$sitters->species}}>
+<article class="showCard sitterCard a-popup" data-species-of-animal={{$sitters->species}}>
     <header class="showCard__header u-flex-v-center">
                 <h2 class="showCard__heading">{{$sitters->name}}</h2>
         </header>
@@ -9,6 +9,20 @@
             <p>
                 {{$sitters->description}}
             </p>
+        </section>
+        <section class="showCard__reviews">
+            <table class="reviewTable">
+                <tr class="reviewTable__row">
+                    <th class="reviewTable__heading"> Rating </th>
+                    <th class="reviewTable__heading"> Text </th>
+                </tr>
+                @foreach($reviews as $review)
+                    <tr class="reviewTable__row">
+                        <td class="reviewTable__collumn"> {{$review->rating}} </td>
+                        <td class="reviewTable__collumn"> {{$review->review_text}} </td>
+                    </tr>   
+                @endforeach            
+            </table>    
         </section>
 
         <section class="showCard__buttonSection u-flex-v-center">

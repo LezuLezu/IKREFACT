@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route to log in
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['banned', 'auth'])->name('dashboard');
 
 
 // Accesible after log in
@@ -40,6 +40,17 @@ Route::middleware(['banned', 'auth'])->group(function(){
     // Oppassers routes
     Route::get('/sitters', [\App\Http\Controllers\UserController::class, 'sitterIndex']);
     Route::get('/sitter/{id}', [\App\Http\Controllers\UserController::class, 'sitterShow']);
+    // applications
+    Route::get('/application', [\App\Http\Controllers\UserController::class, 'createApplication']);
+    Route::post('/application', [\App\Http\Controllers\UserController::class, 'storeApplication']);
+    // Accept/decline
+    Route::get('/application/{id}', [\App\Http\Controllers\UserController::class, 'createAccept']);
+    Route::post('/application/{id}', [\App\Http\Controllers\UserController::class, 'updateAccept']);
+    // Review after accept
+    Route::get('/review/{id}', [\App\Http\Controllers\UserController::class, 'createReview']);
+    Route::post('/review/{id}', [\App\Http\Controllers\UserController::class, 'storeReview']);
+
+
 
     // create new pet profile
     Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);

@@ -21,7 +21,7 @@ class UserController extends Controller
 
     public function ownerAnimals($id){
         $animals = \App\Models\User::find($id)->myAnimals;
-        return view('animal.index', ['animals' => $animals]);
+        return view('animal.ownerIndex', ['animals' => $animals]);
     }
 
     // Sitter functions
@@ -31,7 +31,11 @@ class UserController extends Controller
     }
     public function sitterShow($id){
         $sitters = \App\Models\User::find($id);
-        return view('sitter.show', ['sitters' => $sitters]);
+        $reviews = \App\Models\Review::all()->where('id', $id);
+        return view('sitter.show', [
+            'sitters' => $sitters,
+            'reviews' => $reviews,
+            ]);
     }
 
     // Create new sitter
@@ -57,4 +61,104 @@ class UserController extends Controller
             return redirect('/createsitter');
         }
     }
+
+    // create application
+    public function createApplication(){
+        $animal = \App\Models\Animal::all();
+        return view('sitter.create', ['animals' => $animal]);
+    }
+
+    public function storeApplication(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
+        $user = Auth::user();
+        $petname = $request->input('namePet');
+        // return $petname;
+        try{
+            DB::table('animal')
+                    ->where('name', $petname)
+                    ->update([
+                        'sitter'=> $user->id,
+                        ]);
+            return redirect('/animals');
+        }catch(Exception $e){
+            return redirect('/createsitter');
+        }
+    }
+    // Owner accepts or refuses
+    public function createAccept($id, \App\Models\Animal $animalMod, \App\Models\User $userMod){
+        $animal = $animalMod::find($id);
+        $sitterId = $animal->sitter;
+        $sitter = $userMod::find($sitterId);
+        // return $sitterId;
+        if($sitterId == NULL){
+            $user = Auth::user()->id;
+            return $this->ownerAnimals($user);
+        }else{
+            return view('owner.accept', [
+                'animal' => $animal,
+                'sitter' => $sitter
+            ]);
+        }        
+    }
+    public function updateAccept(Request $request, \App\Models\Animal $animalMod, \App\Models\User $userMod){
+        switch($request->input('action')){
+            case 'accept':
+                $id = intval(substr($_SERVER['REQUEST_URI'], -1));
+                $animal = $animalMod::find($id);
+                // return $animal;
+                return $this->createReview($animal);
+                break;
+            case 'refuse':
+                $uri = $_SERVER['REQUEST_URI'];
+                $id = intval(substr($uri, -1));
+                // return gettype($id);
+                $animal = $animalMod::find($id);
+                try{
+                    DB::table('animal')
+                    ->where('name', $animal->name)
+                    ->update([
+                        'sitter'=> NULL,
+                        ]);
+                    $user = Auth::user()->id;
+                    return $this->ownerAnimals($user);
+                }catch(Exception $e){
+                    return redirect('/application/{{$animal->id}}');
+                }      
+                break;
+        }        
+    }
+
+    // Reviews
+    public function createReview($animal){
+        $sitter = \App\Models\User::find($animal->sitter);
+        DB::table('animal')
+                    ->where('name', $animal->name)
+                    ->update([
+                        'sitter'=> NULL,
+                        ]);
+        return view('owner.review', ['sitter'=>$sitter]);
+    }
+
+    public function storeReview(Request $request, \App\Models\Review $review){
+        $id = substr($_SERVER['REQUEST_URI'], -2);
+        if($id[0] == "/"){
+            $id = intval(substr($id, -1));
+        }else{
+            $id = intval($id);
+        }
+        $review->id = $id;
+        if($request->input('rating') != NULL){
+            $review->rating =  $request->input('rating');
+            $review->review_text = $request->input('review_text');
+            try{
+                $review->save();
+                return redirect('/animals');
+            }catch(Exception $e){
+                return redirect('owner.review');
+            }
+        }else{
+            return redirect('/animals');
+        }
+        
+    }
+
 }

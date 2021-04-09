@@ -2,7 +2,7 @@
  <!-- Filters -->
 <section class='filter-section'>
      <section class="filter-section__wrapper">
-        <labe class="filter-section__label" for="cat"> Katten </label>
+        <label class="filter-section__label" for="cat"> Katten </label>
         <input class="filter-section__input" id="cat" name="cat" type="checkbox">
      </section>
      <section class="filter-section__wrapper">
