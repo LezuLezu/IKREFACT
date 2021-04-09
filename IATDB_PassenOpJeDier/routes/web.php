@@ -16,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 // Route to log in
 Route::get('/dashboard', function () {
     return view('dashboard');
-})->middleware(['auth'])->name('dashboard');
+})->middleware(['banned', 'auth'])->name('dashboard');
 
 
 // Accesible after log in

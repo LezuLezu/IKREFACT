@@ -139,7 +139,12 @@ class UserController extends Controller
     }
 
     public function storeReview(Request $request, \App\Models\Review $review){
-        $id = intval(substr($_SERVER['REQUEST_URI'], -1));
+        $id = substr($_SERVER['REQUEST_URI'], -2);
+        if($id[0] == "/"){
+            $id = intval(substr($id, -1));
+        }else{
+            $id = intval($id);
+        }
         $review->id = $id;
         if($request->input('rating') != NULL){
             $review->rating =  $request->input('rating');
