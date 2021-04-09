@@ -57,4 +57,67 @@ class UserController extends Controller
             return redirect('/createsitter');
         }
     }
+
+    // create application
+    public function createApplication(){
+        $animal = \App\Models\Animal::all();
+        return view('sitter.create', ['animals' => $animal]);
+    }
+
+    public function storeApplication(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
+        $user = Auth::user();
+        $petname = $request->input('namePet');
+        // return $petname;
+        try{
+            DB::table('animal')
+                    ->where('name', $petname)
+                    ->update([
+                        'sitter'=> $user->id,
+                        ]);
+            return redirect('/animals');
+        }catch(Exception $e){
+            return redirect('/createsitter');
+        }
+    }
+    public function createAccept($id, \App\Models\Animal $animalMod, \App\Models\User $userMod){
+        $animal = $animalMod::find($id);
+        $sitterId = $animal->sitter;
+        $sitter = $userMod::find($sitterId);
+        // return $sitterId;
+        if($sitterId == NULL){
+            $user = Auth::user()->id;
+            return $this->ownerAnimals($user);
+        }else{
+            return view('owner.accept', [
+                'animal' => $animal,
+                'sitter' => $sitter
+            ]);
+        }        
+    }
+    public function updateAccept(Request $request, \App\Models\Animal $animalMod, \App\Models\User $userMod){
+        switch($request->input('action')){
+            case 'accept':
+                return "gelukt";
+                break;
+            case 'refuse':
+                $uri = $_SERVER['REQUEST_URI'];
+                $id = intval(substr($uri, -1));
+                // return gettype($id);
+                $animal = $animalMod::find($id);
+                try{
+                    DB::table('animal')
+                    ->where('name', $animal->name)
+                    ->update([
+                        'sitter'=> NULL,
+                        ]);
+                    $user = Auth::user()->id;
+                    return $this->ownerAnimals($user);
+                }catch(Exception $e){
+                    return redirect('/application/{{$animal->id}}');
+                }      
+                break;
+        }
+        
+    }
+
 }

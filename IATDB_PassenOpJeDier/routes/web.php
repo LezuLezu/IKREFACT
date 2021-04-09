@@ -40,6 +40,15 @@ Route::middleware(['banned', 'auth'])->group(function(){
     // Oppassers routes
     Route::get('/sitters', [\App\Http\Controllers\UserController::class, 'sitterIndex']);
     Route::get('/sitter/{id}', [\App\Http\Controllers\UserController::class, 'sitterShow']);
+    // applications
+    Route::get('/application', [\App\Http\Controllers\UserController::class, 'createApplication']);
+    Route::post('/application', [\App\Http\Controllers\UserController::class, 'storeApplication']);
+    // Accept/decline
+    Route::get('/application/{id}', [\App\Http\Controllers\UserController::class, 'createAccept']);
+    Route::post('/application/{id}', [\App\Http\Controllers\UserController::class, 'updateAccept']);
+
+
+
 
     // create new pet profile
     Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
