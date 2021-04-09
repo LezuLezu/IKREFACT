@@ -51,4 +51,41 @@ class AdminController extends Controller
        }
     }
 
+    // Delete pet applications
+    public function deletePet(){
+        $animals = \App\Models\Animal::all();
+        return view('admin.remove--pet', [
+            'animals' => $animals
+        ]);
+    }
+    public function destroyPet(Request $request, \App\Models\Animal $animal){
+        $petname = $request->input('name');
+        try{
+            DB::table('animal')
+                    ->where('name', $petname)
+                    ->delete();
+            return redirect('/admin');
+        }catch(Exception $e){
+            return redirect('/admin/remove--pet');
+        }
+    }
+    // Delete users
+    public function deleteUser(){
+        $users = \App\Models\User::all()->where('role', '<>', 'Admin');
+        return view('admin.remove--user', [
+            'users' => $users
+        ]);
+    }
+    public function destroyUser(Request $request, \App\Models\User $user){
+        $username = $request->input('name');
+        try{
+            DB::table('users')
+                    ->where('name', $username)
+                    ->delete();
+            return redirect('/admin');
+        }catch(Exception $e){
+            return redirect('/admin/remove--user');
+        }
+    }
+
 }

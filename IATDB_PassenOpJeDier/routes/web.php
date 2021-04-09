@@ -24,6 +24,8 @@ Route::middleware(['auth'])->group(function(){
 
     // default route
     Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
+    // log out
+    Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
     // animal routes
     Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'index']);
@@ -56,6 +58,15 @@ Route::middleware(['auth', 'admin'])->group(function(){
     // deblock users
     Route::get('/admin/create--deblock', [\App\Http\Controllers\AdminController::class, 'createDeblock']);
     Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'updateDeblock']);
+
+    // remove pet applications
+    Route::get('/admin/remove--pet', [\App\Http\Controllers\AdminController::class, 'deletePet']);
+    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'destroyPet']);
+
+    // Remove users
+    Route::get('/admin/remove--user', [\App\Http\Controllers\AdminController::class, 'deleteUser']);
+    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'destroyUser']);
+
 
 });
 
