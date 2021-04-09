@@ -46,7 +46,7 @@ class UserController extends Controller
         $userDes = $request->input('description');
         try{
             DB::table('users')
-                    ->where('id', $user->id)
+                    ->where('id', $user->id)->where('role', '<>', 'Admin')
                     ->update([
                         'image' => $userImage,
                         'description' => $userDes,

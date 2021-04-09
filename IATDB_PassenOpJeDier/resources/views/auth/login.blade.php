@@ -1,11 +1,6 @@
 <x-guest-layout>
     <x-auth-card>
-        <div class="card-body">
-            @if (session('message'))
-                <div class="alert alert-danger">{{ session('message') }}</div>
-            @endif
-            <form method="POST" action="{{ route('login') }}">
-        </div>
+
 
         <x-slot name="logo">
             <a href="/">
@@ -15,9 +10,19 @@
 
         <!-- Session Status -->
         <x-auth-session-status class="mb-4" :status="session('status')" />
+      
+
+    <form method="POST" action="{{ route('login') }}">
 
         <!-- Validation Errors -->
+        
+
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
+
+        @if (session('message'))
+        <div class="alert alert-danger">{{ session('message') }}</div>
+    @endif
+
 
         <form method="POST" action="{{ route('login') }}">
             @csrf

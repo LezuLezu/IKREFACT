@@ -1,25 +1,25 @@
 @extends('default')
 
 @section('title')
-    deblokkeren
+    Verwijder Aanvraag 
 @endsection
 
 @section('content')
     <article class="create-form a-popup">
-        <form class="create-form__form" action="/admin/create--deblock" method='POST'>
+        <form class="create-form__form" action="/admin/remove--pet" method='POST'>
             @csrf
 
             <section class="create-form__section">
-                <label for="name"> Selecteer de gebruiker </label>
+                <label for="name"> Selecter het dier </label>
                 <select class="create-form__input" name="name" id="name">
-                @foreach($users as $user)
-                        <option value="{{$user->name}}">{{$user->name}}</option>
+                @foreach($animals as $animal)
+                        <option value="{{$animal->name}}">{{$animal->name}}</option>
                 @endforeach
                 </select>
-            </section>           
+            </section>         
 
             <section class="create-form__section">
-                <button class="create-form__button" type="submit">Deblokkeer</button>
+                <button class="create-form__button" type="submit">Verwijder </button>
             </section>
         </form>
     </article>

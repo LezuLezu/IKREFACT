@@ -28,7 +28,10 @@
             </li >
             <li class="navbar__item u-flex-v-center">
                 <a class="navbar__link " href="/createsitter"> Nieuw oppasprofiel </a>
-            </li>  
+            </li> 
+            <li class="navbar__item u-flex-v-center">
+                <a class="navbar__link " href="/logout"> Log uit </a>
+            </li> 
         </ul>       
         <div class="menu-toggle">
             <div class="hamburger"></div>
