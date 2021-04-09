@@ -25,10 +25,7 @@ body{
     background-color: #a3d2ca;
 }
 
-.gridCard > a{
-    text-decoration: none;
-}
-.gridCard > a > article{
+.gridCard > article{
     width: 100%;
     height: 100%;
 }

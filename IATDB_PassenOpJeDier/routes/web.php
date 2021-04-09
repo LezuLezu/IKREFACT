@@ -46,7 +46,9 @@ Route::middleware(['banned', 'auth'])->group(function(){
     // Accept/decline
     Route::get('/application/{id}', [\App\Http\Controllers\UserController::class, 'createAccept']);
     Route::post('/application/{id}', [\App\Http\Controllers\UserController::class, 'updateAccept']);
-
+    // Review after accept
+    Route::get('/review/{id}', [\App\Http\Controllers\UserController::class, 'createReview']);
+    Route::post('/review/{id}', [\App\Http\Controllers\UserController::class, 'storeReview']);
 
 
 

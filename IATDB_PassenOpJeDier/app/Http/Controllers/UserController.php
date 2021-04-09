@@ -79,6 +79,7 @@ class UserController extends Controller
             return redirect('/createsitter');
         }
     }
+    // Owner accepts or refuses
     public function createAccept($id, \App\Models\Animal $animalMod, \App\Models\User $userMod){
         $animal = $animalMod::find($id);
         $sitterId = $animal->sitter;
@@ -97,7 +98,10 @@ class UserController extends Controller
     public function updateAccept(Request $request, \App\Models\Animal $animalMod, \App\Models\User $userMod){
         switch($request->input('action')){
             case 'accept':
-                return "gelukt";
+                $id = intval(substr($_SERVER['REQUEST_URI'], -1));
+                $animal = $animalMod::find($id);
+                // return $animal;
+                return $this->createReview($animal);
                 break;
             case 'refuse':
                 $uri = $_SERVER['REQUEST_URI'];
@@ -116,8 +120,26 @@ class UserController extends Controller
                     return redirect('/application/{{$animal->id}}');
                 }      
                 break;
+        }        
+    }
+
+    // Reviews
+    public function createReview($animal){
+        $sitter = \App\Models\User::find($animal->sitter);
+        return view('owner.review', ['sitter'=>$sitter]);
+    }
+
+    public function storeReview(Request $request, \App\Models\Review $review){
+        $id = intval(substr($_SERVER['REQUEST_URI'], -1));
+        $review->id = $id;
+        $review->rating =  $request->input('rating');
+        $review->review_text = $request->input('review_text');
+        try{
+            $review->save();
+            return redirect('/animals');
+        }catch(Exception $e){
+            return redirect('owner.review');
         }
-        
     }
 
 }
