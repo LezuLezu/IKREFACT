@@ -6,7 +6,7 @@
 
 @section('content')
     <article class="create-form a-popup">
-        <form class="create-form__form" action="/admin" method='POST'>
+        <form class="create-form__form" action="/admin/remove--pet" method='POST'>
             @csrf
 
             <section class="create-form__section">

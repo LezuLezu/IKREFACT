@@ -4,6 +4,10 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
+
+
+
 // https://laraveldaily.com/how-to-ban-suspend-users-in-laravel-project/
 class CheckBanned
 {
@@ -24,7 +28,7 @@ class CheckBanned
             if ($banned_days > 14) {
                 $message = 'Your account has been suspended. Please contact administrator.';
             } else {
-                $message = 'Your account has been suspended for '.$banned_days.' '.str_plural('day', $banned_days).'. Please contact administrator.';
+                $message = 'Your account has been suspended for '.$banned_days.' ' . Str::plural('day', $banned_days).'. Please contact administrator.';
             }
 
             return redirect()->route('login')->withMessage($message);

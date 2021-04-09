@@ -20,7 +20,7 @@ Route::get('/dashboard', function () {
 
 
 // Accesible after log in
-Route::middleware(['auth'])->group(function(){
+Route::middleware(['banned', 'auth'])->group(function(){
 
     // default route
     Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
@@ -54,18 +54,18 @@ Route::middleware(['auth', 'admin'])->group(function(){
     Route::get('/admin', [\App\Http\Controllers\AdminController::class, 'index']);
     // block users
     Route::get('/admin/create--block', [\App\Http\Controllers\AdminController::class, 'createBlock']);
-    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'updateBlock']);
+    Route::post('/admin/create--block', [\App\Http\Controllers\AdminController::class, 'updateBlock']);
     // deblock users
     Route::get('/admin/create--deblock', [\App\Http\Controllers\AdminController::class, 'createDeblock']);
-    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'updateDeblock']);
+    Route::post('/admin/create--deblock', [\App\Http\Controllers\AdminController::class, 'updateDeblock']);
 
     // remove pet applications
     Route::get('/admin/remove--pet', [\App\Http\Controllers\AdminController::class, 'deletePet']);
-    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'destroyPet']);
+    Route::post('/admin/remove--pet', [\App\Http\Controllers\AdminController::class, 'destroyPet']);
 
     // Remove users
     Route::get('/admin/remove--user', [\App\Http\Controllers\AdminController::class, 'deleteUser']);
-    Route::post('/admin', [\App\Http\Controllers\AdminController::class, 'destroyUser']);
+    Route::post('/admin/remove--user', [\App\Http\Controllers\AdminController::class, 'destroyUser']);
 
 
 });

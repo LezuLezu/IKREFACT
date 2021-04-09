@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Exception;
 use DB;
+use Carbon\Carbon;
 
 class AdminController extends Controller
 {
@@ -21,7 +22,10 @@ class AdminController extends Controller
     }
     public function updateBlock(Request $request, \App\Models\User $user){
        $name = $request->input('name');
-       $date = $request->input('endDate');
+       $time = Carbon::now('Europe/Amsterdam')->toTimeString();
+       $date = $request->input('endDate') . ' ' . $time;
+    //    return Carbon::now('Europe/Amsterdam');
+    //    return $date;
        try{
            DB::table('users')
                 ->where('name', $name)
