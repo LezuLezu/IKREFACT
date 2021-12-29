@@ -58,8 +58,12 @@ Route::middleware(['banned', 'auth'])->group(function(){
 
 
     // create new pet profile
-    Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
-    Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
+    // Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
+    // Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
+    Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'createNewPet']);
+    Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'storeNewPet']);
+
+
     // Create new Sitter profile
     // Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'create']);
     // Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);

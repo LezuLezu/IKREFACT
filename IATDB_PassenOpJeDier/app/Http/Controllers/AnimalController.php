@@ -39,19 +39,23 @@ class AnimalController extends Controller
         return view('owner.show', ['owners' => $owners]);
     }
     
-    // create new pet profile
-    public function create(){
+    // // create new pet profile
+    // public function create(){
+    //     return view('new.pet.create', [
+    //         'kind_of_animal' => \App\Models\KindOfAnimal::all(),
+    //         'images' => \App\Models\Images::all()
+    //     ]);
+    // }
+
+    public function createNewPet(){
         return view('new.pet.create', [
             'kind_of_animal' => \App\Models\KindOfAnimal::all(),
             'images' => \App\Models\Images::all()
         ]);
     }
-    public function store(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
-        // fetch owner/user info
-        $user = Auth::user();
-        $userImage = $request->input('imageHome');
-        $userDes = $request->input('descriptionOwner');
-        // fetch pet info
+    
+
+    public function fetchPetInfo($request, $animal, $user){
         $animal->name = $request->input('name');
         $animal->species = $request->input('species');
         $animal->age = $request->input('age');
@@ -59,7 +63,19 @@ class AnimalController extends Controller
         $animal->image = $request->input('imagePet');
         $animal->owner = $user->id;
         $animal->description = $request->input('descriptionPet');
+        return $animal;
+    }
 
+    public function fetchUserInfo($request, $user){
+        $user = Auth::user();
+        $userImage = $request->input('imageHome');
+        $userDes = $request->input('descriptionOwner');
+        return [$user, $userImage, $userDes];
+    }
+
+    public function storeNewPet(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
+        [$user, $userImage, $userDes] = $this->fetchUserInfo($request, $user);
+        $animal = $this->fetchPetInfo($request, $animal, $user);       
         try{
             $animal->save();
             DB::table('users')
@@ -74,4 +90,33 @@ class AnimalController extends Controller
             return redirect('/createpet');
         }
     }
+
+    // public function store(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
+    //     // fetch owner/user info
+    //     $user = Auth::user();
+    //     $userImage = $request->input('imageHome');
+    //     $userDes = $request->input('descriptionOwner');
+    //     // fetch pet info
+    //     $animal->name = $request->input('name');
+    //     $animal->species = $request->input('species');
+    //     $animal->age = $request->input('age');
+    //     $animal->breed = $request->input('breed');
+    //     $animal->image = $request->input('imagePet');
+    //     $animal->owner = $user->id;
+    //     $animal->description = $request->input('descriptionPet');
+
+    //     try{
+    //         $animal->save();
+    //         DB::table('users')
+    //                 ->where('id', $user->id)
+    //                 ->update([
+    //                     'image' => $userImage,
+    //                     'description' => $userDes,
+    //                     'role' => "Baasje"
+    //                 ]);
+    //         return redirect('/animals');
+    //     }catch(Exception $e){
+    //         return redirect('/createpet');
+    //     }
+    // }
 }

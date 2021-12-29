@@ -14,7 +14,7 @@ class UserController extends Controller
         $owners = \App\Models\User::all()->where('role', 'Baasje');
         return view('owner.index', ['owners' => $owners]);
     }
-    
+
     public function ownerShow($id){
         $owners = \App\Models\User::find($id);
         return view('owner.show', ['owners' => $owners]);
@@ -187,7 +187,7 @@ class UserController extends Controller
     //     }        
     // }
 
-    public function procesStore(\App\Models\Review $review){
+    public function procesStoreReview(\App\Models\Review $review){
         try{
             $review->save();
             return '/animals';
@@ -196,6 +196,23 @@ class UserController extends Controller
         }
     }
 
+    // public function storeReview(Request $request, \App\Models\Review $review){
+    //     $id = substr($_SERVER['REQUEST_URI'], -2);
+    //     if($id[0] == "/"){
+    //         $id = intval(substr($id, -1));
+    //     }else{
+    //         $id = intval($id);
+    //     }
+    //     $review->id = $id;
+    //     if($request->input('rating') != NULL){
+    //         $review->rating =  $request->input('rating');
+    //         $review->review_text = $request->input('review_text');
+    //         return redirect($this->procesStoreReview($review));
+            
+    //     }else{
+    //         return redirect('/animals');
+    //     }        
+    // }
     public function storeReview(Request $request, \App\Models\Review $review){
         $id = substr($_SERVER['REQUEST_URI'], -2);
         if($id[0] == "/"){
@@ -207,11 +224,10 @@ class UserController extends Controller
         if($request->input('rating') != NULL){
             $review->rating =  $request->input('rating');
             $review->review_text = $request->input('review_text');
-            return redirect($this->procesStore($review));
+            return redirect($this->procesStoreReview($review));
             
-        }else{
-            return redirect('/animals');
-        }        
+        }
+        return redirect('/animals');
     }
 
 }
