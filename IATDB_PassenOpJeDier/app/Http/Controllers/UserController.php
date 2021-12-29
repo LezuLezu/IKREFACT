@@ -8,12 +8,13 @@ use Auth;
 
 class UserController extends Controller
 {
+
     // Pet owner functions
     public function ownerIndex(){
         $owners = \App\Models\User::all()->where('role', 'Baasje');
         return view('owner.index', ['owners' => $owners]);
     }
-
+    
     public function ownerShow($id){
         $owners = \App\Models\User::find($id);
         return view('owner.show', ['owners' => $owners]);
@@ -29,6 +30,7 @@ class UserController extends Controller
         $sitters = \App\Models\User::all()->where('role', 'Oppasser');
         return view('sitter.index', ['sitters' => $sitters]);
     }
+
     public function sitterShow($id){
         $sitters = \App\Models\User::find($id);
         $reviews = \App\Models\Review::all()->where('id', $id);
@@ -39,12 +41,37 @@ class UserController extends Controller
     }
 
     // Create new sitter
-    public function create(){
+    // public function create(){
+    //     return view('new.sitter.create', [
+    //         'images' => \App\Models\Images::all()
+    //     ]);
+    // }
+
+    public function sitterCreate(){
         return view('new.sitter.create', [
             'images' => \App\Models\Images::all()
         ]);
     }
-    public function store(Request $request, \App\Models\User $user){
+
+    // public function store(Request $request, \App\Models\User $user){
+    //     $user = Auth::user();
+    //     $userImage = $request->input('imageHome');
+    //     $userDes = $request->input('description');
+    //     try{
+    //         DB::table('users')
+    //                 ->where('id', $user->id)->where('role', '<>', 'Admin')
+    //                 ->update([
+    //                     'image' => $userImage,
+    //                     'description' => $userDes,
+    //                     'role' => 'Oppasser'
+    //                 ]);
+    //         return redirect('/sitters');
+    //     }catch(Exception $e){
+    //         return redirect('/createsitter');
+    //     }
+    // }
+
+    public function sitterStore(Request $request, \App\Models\User $user){
         $user = Auth::user();
         $userImage = $request->input('imageHome');
         $userDes = $request->input('description');
@@ -138,6 +165,37 @@ class UserController extends Controller
         return view('owner.review', ['sitter'=>$sitter]);
     }
 
+    // public function storeReview(Request $request, \App\Models\Review $review){
+    //     $id = substr($_SERVER['REQUEST_URI'], -2);
+    //     if($id[0] == "/"){
+    //         $id = intval(substr($id, -1));
+    //     }else{
+    //         $id = intval($id);
+    //     }
+    //     $review->id = $id;
+    //     if($request->input('rating') != NULL){
+    //         $review->rating =  $request->input('rating');
+    //         $review->review_text = $request->input('review_text');
+    //         try{
+    //             $review->save();
+    //             return redirect('/animals');
+    //         }catch(Exception $e){
+    //             return redirect('owner.review');
+    //         }
+    //     }else{
+    //         return redirect('/animals');
+    //     }        
+    // }
+
+    public function procesStore(\App\Models\Review $review){
+        try{
+            $review->save();
+            return '/animals';
+        }catch(Exception $e){
+            return 'owner.review';
+        }
+    }
+
     public function storeReview(Request $request, \App\Models\Review $review){
         $id = substr($_SERVER['REQUEST_URI'], -2);
         if($id[0] == "/"){
@@ -149,16 +207,11 @@ class UserController extends Controller
         if($request->input('rating') != NULL){
             $review->rating =  $request->input('rating');
             $review->review_text = $request->input('review_text');
-            try{
-                $review->save();
-                return redirect('/animals');
-            }catch(Exception $e){
-                return redirect('owner.review');
-            }
+            return redirect($this->procesStore($review));
+            
         }else{
             return redirect('/animals');
-        }
-        
+        }        
     }
 
 }

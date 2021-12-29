@@ -23,14 +23,19 @@ Route::get('/dashboard', function () {
 Route::middleware(['banned', 'auth'])->group(function(){
 
     // default route
-    Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
+    // Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+
     // log out
     Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
     // animal routes
-    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'index']);
-    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'show']);
-    Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'owner']);
+    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+    // Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'show']);
+    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'animalShow']);
+    // Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'owner']);
+    Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'ownerShow']);
+
 
     // Owner routes
     Route::get('/owners', [\App\Http\Controllers\UserController::class, 'ownerIndex']);
@@ -56,8 +61,10 @@ Route::middleware(['banned', 'auth'])->group(function(){
     Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
     Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
     // Create new Sitter profile
-    Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'create']);
-    Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);
+    // Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'create']);
+    // Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);
+    Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'sitterCreate']);
+    Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'sitterStore']);
 });
 
 // Accesible for admin

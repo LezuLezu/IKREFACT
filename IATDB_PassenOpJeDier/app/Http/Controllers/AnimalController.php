@@ -9,22 +9,36 @@ use Auth;
 
 class AnimalController extends Controller
 {
-        // show all pets
-    public function index(){
-        // return \App\Models\Animal::all();
+    //     // show all pets
+    // public function index(){
+    //     // return \App\Models\Animal::all();
+    //     $animals = \App\Models\Animal::all();
+    //     return view('animal.index', ['animals' => $animals]);
+    // }
+    public function animalIndex(){
         $animals = \App\Models\Animal::all();
         return view('animal.index', ['animals' => $animals]);
     }
-        // show pet
-    public function show($id){
+    //     // show pet
+    // public function show($id){
+    //     $animal = \App\Models\Animal::find($id);
+    //     return view('animal.show', ['animals' => $animal]);
+    // }
+
+    public function animalShow($id){
         $animal = \App\Models\Animal::find($id);
         return view('animal.show', ['animals' => $animal]);
     }
         // show owner of the pet
-    public function owner($id){
+    // public function owner($id){
+    //     $owners = \App\Models\Animal::find($id)->myOwner;
+    //     return view('owner.show', ['owners' => $owners]);
+    // }
+    public function ownerShow($id){
         $owners = \App\Models\Animal::find($id)->myOwner;
         return view('owner.show', ['owners' => $owners]);
     }
+    
     // create new pet profile
     public function create(){
         return view('new.pet.create', [
