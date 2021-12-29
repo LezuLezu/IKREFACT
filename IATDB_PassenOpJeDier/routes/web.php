@@ -30,10 +30,12 @@ Route::middleware(['banned', 'auth'])->group(function(){
     Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
     // animal routes
-    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+    // Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'index']);
     // Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'show']);
-    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'animalShow']);
     // Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'owner']);
+
+    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'animalShow']);
     Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'ownerShow']);
 
 

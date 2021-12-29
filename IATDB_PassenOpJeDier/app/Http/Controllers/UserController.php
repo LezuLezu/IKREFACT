@@ -9,11 +9,20 @@ use Auth;
 class UserController extends Controller
 {
 
-    // Pet owner functions
-    public function ownerIndex(){
-        $owners = \App\Models\User::all()->where('role', 'Baasje');
-        return view('owner.index', ['owners' => $owners]);
+    public function index($role){
+        $persons = \App\Models\User::all()->where('role', $role);
+        return $persons;
     }
+
+    public function ownerIndex(){
+        return view('owner.index', ['owners' => $this->index('Baasje')]);
+    }
+
+    // // Pet owner functions
+    // public function ownerIndex(){
+    //     $owners = \App\Models\User::all()->where('role', 'Baasje');
+    //     return view('owner.index', ['owners' => $owners]);
+    // }
 
     public function ownerShow($id){
         $owners = \App\Models\User::find($id);
@@ -26,9 +35,12 @@ class UserController extends Controller
     }
 
     // Sitter functions
+    // public function sitterIndex(){
+    //     $sitters = \App\Models\User::all()->where('role', 'Oppasser');
+    //     return view('sitter.index', ['sitters' => $sitters]);
+    // }
     public function sitterIndex(){
-        $sitters = \App\Models\User::all()->where('role', 'Oppasser');
-        return view('sitter.index', ['sitters' => $sitters]);
+        return view('sitter.index', ['sitters' => $this->index('Oppasser')]);
     }
 
     public function sitterShow($id){
@@ -126,6 +138,16 @@ class UserController extends Controller
             ]);
         }        
     }
+
+    public function setSitterToNull($animal){
+        DB::table('animal')
+        ->where('name', $animal->name)
+        ->update([
+            'sitter'=> NULL,
+            ]);
+        return ;
+    }
+
     public function updateAccept(Request $request, \App\Models\Animal $animalMod, \App\Models\User $userMod){
         switch($request->input('action')){
             case 'accept':
@@ -137,14 +159,9 @@ class UserController extends Controller
             case 'refuse':
                 $uri = $_SERVER['REQUEST_URI'];
                 $id = intval(substr($uri, -1));
-                // return gettype($id);
                 $animal = $animalMod::find($id);
                 try{
-                    DB::table('animal')
-                    ->where('name', $animal->name)
-                    ->update([
-                        'sitter'=> NULL,
-                        ]);
+                    $this->setSitterToNull($animal);
                     $user = Auth::user()->id;
                     return $this->ownerAnimals($user);
                 }catch(Exception $e){
@@ -157,13 +174,49 @@ class UserController extends Controller
     // Reviews
     public function createReview($animal){
         $sitter = \App\Models\User::find($animal->sitter);
-        DB::table('animal')
-                    ->where('name', $animal->name)
-                    ->update([
-                        'sitter'=> NULL,
-                        ]);
+        $this->setSitterToNull($animal);
         return view('owner.review', ['sitter'=>$sitter]);
     }
+
+    // public function updateAccept(Request $request, \App\Models\Animal $animalMod, \App\Models\User $userMod){
+    //     switch($request->input('action')){
+    //         case 'accept':
+    //             $id = intval(substr($_SERVER['REQUEST_URI'], -1));
+    //             $animal = $animalMod::find($id);
+    //             // return $animal;
+    //             return $this->createReview($animal);
+    //             break;
+    //         case 'refuse':
+    //             $uri = $_SERVER['REQUEST_URI'];
+    //             $id = intval(substr($uri, -1));
+    //             // return gettype($id);
+    //             $animal = $animalMod::find($id);
+    //             try{
+    //                 DB::table('animal')
+    //                 ->where('name', $animal->name)
+    //                 ->update([
+    //                     'sitter'=> NULL,
+    //                     ]);
+    //                 $user = Auth::user()->id;
+    //                 return $this->ownerAnimals($user);
+    //             }catch(Exception $e){
+    //                 return redirect('/application/{{$animal->id}}');
+    //             }      
+    //             break;
+    //     }        
+    // }
+
+    // // Reviews
+    // public function createReview($animal){
+    //     $sitter = \App\Models\User::find($animal->sitter);
+    //     DB::table('animal')
+    //                 ->where('name', $animal->name)
+    //                 ->update([
+    //                     'sitter'=> NULL,
+    //                     ]);
+    //     return view('owner.review', ['sitter'=>$sitter]);
+    // }
+
 
     // public function storeReview(Request $request, \App\Models\Review $review){
     //     $id = substr($_SERVER['REQUEST_URI'], -2);
@@ -224,10 +277,8 @@ class UserController extends Controller
         if($request->input('rating') != NULL){
             $review->rating =  $request->input('rating');
             $review->review_text = $request->input('review_text');
-            return redirect($this->procesStoreReview($review));
-            
+            return redirect($this->procesStoreReview($review));            
         }
         return redirect('/animals');
     }
-
 }
