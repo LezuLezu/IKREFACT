@@ -101,27 +101,27 @@ class UserController extends Controller
         }
     }
 
-    // create application
-    public function createApplication(){
-        $animal = \App\Models\Animal::all();
-        return view('sitter.create', ['animals' => $animal]);
-    }
+    // // create application
+    // public function createApplication(){
+    //     $animal = \App\Models\Animal::all();
+    //     return view('sitter.create', ['animals' => $animal]);
+    // }
 
-    public function storeApplication(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
-        $user = Auth::user();
-        $petname = $request->input('namePet');
-        // return $petname;
-        try{
-            DB::table('animal')
-                    ->where('name', $petname)
-                    ->update([
-                        'sitter'=> $user->id,
-                        ]);
-            return redirect('/animals');
-        }catch(Exception $e){
-            return redirect('/createsitter');
-        }
-    }
+    // public function storeApplication(Request $request, \App\Models\Animal $animal, \App\Models\User $user){
+    //     $user = Auth::user();
+    //     $petname = $request->input('namePet');
+    //     // return $petname;
+    //     try{
+    //         DB::table('animal')
+    //                 ->where('name', $petname)
+    //                 ->update([
+    //                     'sitter'=> $user->id,
+    //                     ]);
+    //         return redirect('/animals');
+    //     }catch(Exception $e){
+    //         return redirect('/createsitter');
+    //     }
+    // }
     // Owner accepts or refuses
     public function createAccept($id, \App\Models\Animal $animalMod, \App\Models\User $userMod){
         $animal = $animalMod::find($id);
