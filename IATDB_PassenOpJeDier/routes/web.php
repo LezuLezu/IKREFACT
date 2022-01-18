@@ -23,14 +23,21 @@ Route::get('/dashboard', function () {
 Route::middleware(['banned', 'auth'])->group(function(){
 
     // default route
-    Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
+    // Route::get('/', [\App\Http\Controllers\AnimalController::class, 'index']);
+    Route::get('/', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+
     // log out
     Route::get('/logout', '\App\Http\Controllers\LoginController@logout');
 
     // animal routes
-    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'index']);
-    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'show']);
-    Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'owner']);
+    // Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'index']);
+    // Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'show']);
+    // Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'owner']);
+
+    Route::get('/animals', [\App\Http\Controllers\AnimalController::class, 'animalIndex']);
+    Route::get('/animal/{id}', [\App\Http\Controllers\AnimalController::class, 'animalShow']);
+    Route::get('/animal/{id}/owner', [\App\Http\Controllers\AnimalController::class, 'ownerShow']);
+
 
     // Owner routes
     Route::get('/owners', [\App\Http\Controllers\UserController::class, 'ownerIndex']);
@@ -53,11 +60,28 @@ Route::middleware(['banned', 'auth'])->group(function(){
 
 
     // create new pet profile
-    Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
-    Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
+    // Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'create']);
+    // Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'store']);
+    Route::get('/createpet', [\App\Http\Controllers\AnimalController::class, 'createNewPet']);
+    Route::post('/animals', [\App\Http\Controllers\AnimalController::class, 'storeNewPet']);
+
+
     // Create new Sitter profile
-    Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'create']);
-    Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);
+    // Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'create']);
+    // Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);
+    Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'sitterCreate']);
+    Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'sitterStore']);
+
+
+
+    // Oppasser MicroService Routes
+    // applications
+    Route::get('/micro/application', [\App\Http\Controllers\SitterMicroController::class, 'createApplication']);
+    Route::post('/micro/application', [\App\Http\Controllers\SitterMicroController::class, 'storeApplication']);
+    // dieren zien
+    Route::get('/micro/animals', [\App\Http\Controllers\SitterMicroController::class, 'animalIndex']);
+    Route::get('/micro/animal/{id}', [\App\Http\Controllers\SitterMicroController::class, 'animalShow']);
+
 });
 
 // Accesible for admin
