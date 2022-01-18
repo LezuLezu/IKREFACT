@@ -71,6 +71,17 @@ Route::middleware(['banned', 'auth'])->group(function(){
     // Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'store']);
     Route::get('/createsitter', [\App\Http\Controllers\UserController::class, 'sitterCreate']);
     Route::post('/sitters', [\App\Http\Controllers\UserController::class, 'sitterStore']);
+
+
+
+    // Oppasser MicroService Routes
+    // applications
+    Route::get('/micro/application', [\App\Http\Controllers\SitterMicroController::class, 'createApplication']);
+    Route::post('/micro/application', [\App\Http\Controllers\SitterMicroController::class, 'storeApplication']);
+    // dieren zien
+    Route::get('/micro/animals', [\App\Http\Controllers\SitterMicroController::class, 'animalIndex']);
+    Route::get('/micro/animal/{id}', [\App\Http\Controllers\SitterMicroController::class, 'animalShow']);
+
 });
 
 // Accesible for admin
